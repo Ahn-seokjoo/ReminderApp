@@ -14,17 +14,26 @@ import com.delightroom.reminder.ui.setting.ReminderEditingFragment
 
 class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.fragment_main_reminder) {
     private val reminderAdapter = ReminderRecyclerviewAdapter(::startEditReminder)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerview.adapter = reminderAdapter
 
+        binding.addReminder.setOnClickListener {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                addToBackStack("MainReminder")
+                replace<ReminderEditingFragment>(R.id.fragment_container_view)
+            }
+        }
     }
 
     private fun startEditReminder(reminder: ReminderData) {
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             arguments = bundleOf("reminder" to reminder)
+            addToBackStack("MainReminder")
             replace<ReminderEditingFragment>(R.id.fragment_container_view, args = arguments)
         }
     }

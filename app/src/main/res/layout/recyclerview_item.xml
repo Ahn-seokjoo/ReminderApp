@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="6dp"
-        android:background="@color/button_background"
+        android:background="@drawable/button_background"
         android:backgroundTint="@color/button_background"
         app:cardCornerRadius="10dp">
 
@@ -27,11 +27,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
+                android:src="@drawable/alarm_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/alarm_time"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/alarm_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/alarm_time"

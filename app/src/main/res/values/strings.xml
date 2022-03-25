@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ReminderApp</string>
+    <string name="remind">리마인드</string>
+    <string name="add_remind">리마인드 추가</string>
+    <string name="edit_remind">리마인드 설정</string>
+    <string name="remind_name">리마인드 이름</string>
+    <string name="please_enter_a_name">Please enter a name</string>
+    <string name="setting_time">시간 설정</string>
+    <string name="ringtone">벨소리</string>
+    <string name="ringtone_text">Ringtone</string>
+    <string name="ringtone_name">Homecoming</string>
+    <string name="save">Save</string>
 </resources>

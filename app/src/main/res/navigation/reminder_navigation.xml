@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/reminderSettingFragment"
-        android:name="com.delightroom.reminder.ui.setting.ReminderSettingFragment"
+        android:name="com.delightroom.reminder.ui.setting.ReminderEditingFragment"
         android:label="ReminderSettingFragment">
         <action
             android:id="@+id/action_reminderSettingFragment_to_reminderMainFragment"

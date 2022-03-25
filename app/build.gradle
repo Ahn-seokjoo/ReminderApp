@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id "dagger.hilt.android.plugin"
 }
 
@@ -75,4 +76,7 @@ dependencies {
     // hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

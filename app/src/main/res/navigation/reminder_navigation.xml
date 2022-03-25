@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reminder_navigation"
+    app:startDestination="@id/reminderMainFragment">
+
+    <fragment
+        android:id="@+id/reminderMainFragment"
+        android:name="com.delightroom.reminder.ui.main.ReminderMainFragment"
+        android:label="ReminderMainFragment">
+        <action
+            android:id="@+id/action_reminderMainFragment_to_reminderSettingFragment"
+            app:destination="@id/reminderSettingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderSettingFragment"
+        android:name="com.delightroom.reminder.ui.setting.ReminderSettingFragment"
+        android:label="ReminderSettingFragment">
+        <action
+            android:id="@+id/action_reminderSettingFragment_to_reminderMainFragment"
+            app:destination="@id/reminderMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderAlarmFragment"
+        android:name="com.delightroom.reminder.ui.alarm.ReminderAlarmFragment"
+        android:label="ReminderAlarmFragment">
+        <action
+            android:id="@+id/action_reminderAlarmFragment_to_reminderMainFragment"
+            app:destination="@id/reminderMainFragment" />
+    </fragment>
+</navigation>

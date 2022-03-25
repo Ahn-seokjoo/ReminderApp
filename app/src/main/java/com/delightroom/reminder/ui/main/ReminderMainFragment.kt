@@ -1,7 +1,8 @@
 package com.delightroom.reminder.ui.main
 
-import androidx.fragment.app.Fragment
 import com.delightroom.reminder.R
+import com.delightroom.reminder.base.BaseFragment
+import com.delightroom.reminder.databinding.FragmentMainReminderBinding
 
-class ReminderMainFragment : Fragment(R.layout.fragment_main_reminder) {
+class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.fragment_main_reminder) {
 }

@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val layoutId: Int) : Fragment(layoutId) {
     private var _binding: B? = null
-    protected val binding: B = _binding!!
+    protected val binding: B
+        get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

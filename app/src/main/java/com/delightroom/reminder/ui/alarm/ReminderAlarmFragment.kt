@@ -1,7 +1,8 @@
 package com.delightroom.reminder.ui.alarm
 
-import androidx.fragment.app.Fragment
 import com.delightroom.reminder.R
+import com.delightroom.reminder.base.BaseFragment
+import com.delightroom.reminder.databinding.FragmentAlarmReminderBinding
 
-class ReminderAlarmFragment : Fragment(R.layout.fragment_alarm_reminder) {
+class ReminderAlarmFragment : BaseFragment<FragmentAlarmReminderBinding>(R.layout.fragment_alarm_reminder) {
 }

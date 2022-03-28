@@ -21,4 +21,5 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="colorControlNormal">@color/gray</item>
     </style>
+
 </resources>

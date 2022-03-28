@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/reminder_navigation"
     app:startDestination="@id/reminderMainFragment">
 
     <fragment
         android:id="@+id/reminderMainFragment"
         android:name="com.delightroom.reminder.ui.main.ReminderMainFragment"
-        android:label="ReminderMainFragment">
+        android:label="ReminderMainFragment"
+        tools:layout="@layout/fragment_main_reminder">
         <action
-            android:id="@+id/action_reminderMainFragment_to_reminderSettingFragment"
-            app:destination="@id/reminderSettingFragment" />
+            android:id="@+id/action_reminderMainFragment_to_reminderAlarmFragment"
+            app:destination="@id/reminderAlarmFragment" />
+        <action
+            android:id="@+id/action_reminderMainFragment_to_reminderEditingFragment"
+            app:destination="@id/reminderEditingFragment" />
     </fragment>
     <fragment
-        android:id="@+id/reminderSettingFragment"
+        android:id="@+id/reminderEditingFragment"
         android:name="com.delightroom.reminder.ui.setting.ReminderEditingFragment"
-        android:label="ReminderSettingFragment">
+        android:label="ReminderEditingFragment"
+        tools:layout="@layout/fragment_editing_reminder">
         <action
-            android:id="@+id/action_reminderSettingFragment_to_reminderMainFragment"
+            android:id="@+id/action_reminderEditingFragment_to_reminderMainFragment"
             app:destination="@id/reminderMainFragment" />
+        <argument
+            android:name="remind"
+            app:argType="com.delightroom.reminder.repository.ReminderData" />
+
     </fragment>
     <fragment
         android:id="@+id/reminderAlarmFragment"
         android:name="com.delightroom.reminder.ui.alarm.ReminderAlarmFragment"
-        android:label="ReminderAlarmFragment">
+        android:label="ReminderAlarmFragment"
+        tools:layout="@layout/fragment_alarm_reminder">
         <action
             android:id="@+id/action_reminderAlarmFragment_to_reminderMainFragment"
             app:destination="@id/reminderMainFragment" />

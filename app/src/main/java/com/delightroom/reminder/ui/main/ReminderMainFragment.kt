@@ -1,40 +1,67 @@
 package com.delightroom.reminder.ui.main
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.delightroom.reminder.R
 import com.delightroom.reminder.base.BaseFragment
 import com.delightroom.reminder.databinding.FragmentMainReminderBinding
 import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.ui.main.recyclerview.ReminderRecyclerviewAdapter
-import com.delightroom.reminder.ui.setting.ReminderEditingFragment
+import com.delightroom.reminder.viewmodel.ReminderViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.fragment_main_reminder) {
-    private val reminderAdapter = ReminderRecyclerviewAdapter(::startEditReminder)
+    private val reminderViewModel: ReminderViewModel by activityViewModels()
+    private val reminderAdapter by lazy { ReminderRecyclerviewAdapter(::startEditReminder, ::deleteReminder, ::enableClickListener) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerview.adapter = reminderAdapter
+        binding.apply {
+            recyclerview.adapter = reminderAdapter
+            vm = reminderViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
+        startNewReminder()
+    }
+
+    /** 추가 버튼 클릭시 새 추가 페이지로 이동합니다. */
+    private fun startNewReminder() {
         binding.addReminder.setOnClickListener {
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                addToBackStack("MainReminder")
-                replace<ReminderEditingFragment>(R.id.fragment_container_view)
-            }
+            findNavController().navigate(R.id.action_reminderMainFragment_to_reminderEditingFragment)
         }
     }
 
+    /** 아이템을 클릭 시 ringtone data는 viewmodel에 잠시 저장하고, 수정할 수 있게 클릭한 reminder 정보와 함께 수정 페이지로 이동합니다. */
     private fun startEditReminder(reminder: ReminderData) {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            arguments = bundleOf("reminder" to reminder)
-            addToBackStack("MainReminder")
-            replace<ReminderEditingFragment>(R.id.fragment_container_view, args = arguments)
-        }
+        reminderViewModel.setRingtoneData(reminder.ringtone.toUri())
+        findNavController().navigate(R.id.action_reminderMainFragment_to_reminderEditingFragment, bundleOf("reminder" to reminder))
+    }
+
+    /** 클릭된 아이템의 정보는 모두 동일하고, activate만 바꿔줍니다. */
+    private fun enableClickListener(reminder: ReminderData) {
+        reminderViewModel.updateRemind(
+            ReminderData(reminder.time, reminder.remind, !reminder.activate, reminder.ringtone, reminder.id)
+        )
+    }
+
+    /** 아이템 롱클릭시에 삭제 dialog를 생성합니다. */
+    private fun deleteReminder(reminder: ReminderData) {
+        AlertDialog.Builder(context)
+            .setMessage("삭제 하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+                reminderViewModel.deleteRemind(reminder.id)
+            }
+            .setNegativeButton("아니오") { _, _ ->
+            }
+            .create()
+            .show()
     }
 }

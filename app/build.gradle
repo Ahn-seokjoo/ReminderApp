@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id "dagger.hilt.android.plugin"
+    id "androidx.navigation.safeargs"
 }
 
 android {
@@ -70,8 +71,8 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
 
     // jetpack navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"

@@ -8,6 +8,7 @@
         <variable
             name="alarm"
             type="com.delightroom.reminder.repository.ReminderData" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -35,6 +36,7 @@
 
             <TextView
                 android:id="@+id/alarm_time"
+                bindTime="@{alarm.time}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -50,6 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
+                android:text="@{alarm.remind}"
                 android:textColor="@color/gray"
                 app:drawableEndCompat="@drawable/reminder_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +60,16 @@
                 app:layout_constraintTop_toBottomOf="@id/alarm_time"
                 tools:text="내시경 약 먹기" />
 
+            <ImageView
+                android:id="@+id/alarm_enabled"
+                bindImage="@{alarm.activate}"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/remind_check_true" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

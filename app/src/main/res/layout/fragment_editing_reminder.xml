@@ -8,6 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reminderEditingFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_color">
@@ -67,13 +68,13 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/gray"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@id/edit_name_text_count"
+                    app:layout_constraintBottom_toTopOf="@id/edit_remind_text_count"
                     app:layout_constraintEnd_toEndOf="@id/remind_name_text"
                     app:layout_constraintStart_toStartOf="@id/remind_name_text"
-                    app:layout_constraintTop_toBottomOf="@id/edit_name_text_count" />
+                    app:layout_constraintTop_toBottomOf="@id/edit_remind_text_count" />
 
                 <TextView
-                    android:id="@+id/edit_name_text_count"
+                    android:id="@+id/edit_remind_text_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -94,7 +95,7 @@
                     app:layout_constraintBottom_toTopOf="@id/time_picker"
                     app:layout_constraintEnd_toEndOf="@id/remind_name_text"
                     app:layout_constraintStart_toStartOf="@id/remind_name_text"
-                    app:layout_constraintTop_toBottomOf="@id/edit_name_text_count" />
+                    app:layout_constraintTop_toBottomOf="@id/edit_remind_text_count" />
 
                 <TimePicker
                     android:id="@+id/time_picker"
@@ -149,18 +150,19 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:text="@string/ringtone_text"
                         android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@id/current_ringtone"
+                        app:layout_constraintBottom_toTopOf="@id/selected_ringtone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/music_image"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/ringtone_text" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/current_ringtone"
+                        android:id="@+id/selected_ringtone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="4dp"
+                        android:text="@string/ringtone_name"
                         android:textColor="@color/sky_blue"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/ringtone"

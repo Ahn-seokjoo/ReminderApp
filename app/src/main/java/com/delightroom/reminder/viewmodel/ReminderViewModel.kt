@@ -53,6 +53,6 @@ class ReminderViewModel @Inject constructor(private val local: LocalRemindDataSo
     }
 
     companion object {
-        const val DEFAULT_RINGTONE = "content://media/external_primary/audio/media/40?title=Your%20New%20Adventure&canonical=1"
+        const val DEFAULT_RINGTONE = "content://settings/system/ringtone"
     }
 }

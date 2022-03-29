@@ -37,7 +37,7 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
     private fun setEditData() {
         args?.let { remindData ->
             binding.editNameRemind.setText(remindData.remind)
-            binding.ringtone.text = getRingtoneTitle(remindData.ringtone.toUri())
+            binding.selectedRingtone.text = getRingtoneTitle(remindData.ringtone.toUri())
             binding.timePicker.hour = remindData.time.split(":")[0].toInt()
             binding.timePicker.minute = remindData.time.split(":")[1].toInt()
         }
@@ -56,7 +56,7 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
             if (it.resultCode == RESULT_OK) {
                 val uri = it.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
                 reminderViewModel.setRingtoneData(uri)
-                binding.ringtone.text = getRingtoneTitle(uri)
+                binding.selectedRingtone.text = getRingtoneTitle(uri)
             }
         }
     }

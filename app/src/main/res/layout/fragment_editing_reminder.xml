@@ -162,12 +162,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="4dp"
-                        android:text="@string/ringtone_name"
+                        android:text="@string/default_ringtone"
                         android:textColor="@color/sky_blue"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/ringtone"
                         app:layout_constraintTop_toBottomOf="@id/ringtone"
-                        tools:text="@string/ringtone_name" />
+                        tools:text="@string/default_ringtone" />
 
                     <ImageView
                         android:id="@+id/ringtone_arrow"

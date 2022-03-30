@@ -2,8 +2,9 @@ package com.delightroom.reminder.util
 
 import android.content.Context
 import androidx.room.Room
-import com.delightroom.reminder.repository.LocalRemindDataSource
-import com.delightroom.reminder.repository.LocalRemindDataSourceImpl
+import com.delightroom.reminder.repository.ReminderRepository
+import com.delightroom.reminder.repository.local.LocalRemindDataSource
+import com.delightroom.reminder.repository.local.LocalRemindDataSourceImpl
 import com.delightroom.reminder.repository.room.ReminderDatabase
 import dagger.Binds
 import dagger.Module
@@ -34,5 +35,9 @@ abstract class ReminderModule {
         @Provides
         fun providesInstalledReminderDao(reminderDatabase: ReminderDatabase) =
             reminderDatabase.reminderDao()
+
+        @Singleton
+        @Provides
+        fun providesRepository(local: LocalRemindDataSource) = ReminderRepository(local)
     }
 }

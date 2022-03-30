@@ -10,4 +10,6 @@
     <string name="ringtone_text">Ringtone</string>
     <string name="default_ringtone">Default (Fluety Phone)</string>
     <string name="save">Save</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="empty_intent">인텐트가 비어있습니다!!!!</string>
 </resources>

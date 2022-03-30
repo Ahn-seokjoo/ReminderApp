@@ -1,7 +1,10 @@
 package com.delightroom.reminder.ui.setting
 
+import android.app.Activity.ALARM_SERVICE
 import android.app.Activity.RESULT_OK
+import android.app.AlarmManager
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
@@ -11,13 +14,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.delightroom.reminder.R
 import com.delightroom.reminder.base.BaseFragment
 import com.delightroom.reminder.databinding.FragmentEditingReminderBinding
 import com.delightroom.reminder.repository.ReminderData
+import com.delightroom.reminder.util.AlarmReceiver
+import com.delightroom.reminder.util.StringUtils
 import com.delightroom.reminder.viewmodel.ReminderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.layout.fragment_editing_reminder) {
@@ -38,8 +46,8 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
         args?.let { remindData ->
             binding.editNameRemind.setText(remindData.remind)
             binding.selectedRingtone.text = getRingtoneTitle(remindData.ringtone.toUri())
-            binding.timePicker.hour = remindData.time.split(":")[0].toInt()
-            binding.timePicker.minute = remindData.time.split(":")[1].toInt()
+            binding.timePicker.hour = StringUtils.getTimeResult(remindData.time, true)
+            binding.timePicker.minute = StringUtils.getTimeResult(remindData.time, false)
         }
     }
 
@@ -85,6 +93,36 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
         }
     }
 
+    private fun setAlarm(remind: ReminderData) {
+        val alarmManager = activity?.getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java).apply {
+            putExtra(StringUtils.ALARM_REMIND, remind)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, remind.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            this[Calendar.HOUR_OF_DAY] = StringUtils.getTimeResult(remind.time, hour = true)
+            this[Calendar.MINUTE] = StringUtils.getTimeResult(remind.time, hour = false)
+            this[Calendar.SECOND] = 0
+            this[Calendar.MILLISECOND] = 0
+        }
+
+        val nowCalendar = Calendar.getInstance()
+        if (calendar.before(nowCalendar) || nowCalendar.time == calendar.time) {
+            calendar.add(Calendar.DATE, 1)
+        }
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+    }
+
     private fun showAlertMessage() {
         AlertDialog.Builder(context)
             .setMessage("리마인더 이름은 반드시 포함되어야 합니다")
@@ -95,29 +133,29 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
     }
 
     private fun FragmentEditingReminderBinding.addRemind() {
-        reminderViewModel.addRemind(
-            ReminderData(
-                time = getTimeResult(),
+        lifecycleScope.launch {
+            val add = ReminderData(
+                time = StringUtils.convertTimeFormat(timePicker),
                 remind = editNameRemind.text.toString(),
                 activate = ACTIVATE,
                 ringtone = reminderViewModel.ringtone.value
             )
-        )
+            val id = reminderViewModel.addRemind(add).toInt()
+            setAlarm(add.copy(id = id))
+        }
     }
 
     private fun FragmentEditingReminderBinding.updateRemind() {
-        reminderViewModel.updateRemind(
-            ReminderData(
-                time = getTimeResult(),
-                remind = editNameRemind.text.toString(),
-                activate = ACTIVATE,
-                ringtone = reminderViewModel.ringtone.value,
-                id = args!!.id
-            )
+        val update = ReminderData(
+            time = StringUtils.convertTimeFormat(timePicker),
+            remind = editNameRemind.text.toString(),
+            activate = ACTIVATE,
+            ringtone = reminderViewModel.ringtone.value,
+            id = args!!.id
         )
+        reminderViewModel.updateRemind(update)
+        setAlarm(update)
     }
-
-    private fun FragmentEditingReminderBinding.getTimeResult() = String.format("%02d:%02d", timePicker.hour, timePicker.minute)
 
     companion object {
         const val ACTIVATE = true

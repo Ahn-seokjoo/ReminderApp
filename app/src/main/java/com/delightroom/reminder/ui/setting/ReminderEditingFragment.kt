@@ -23,7 +23,9 @@ import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.util.AlarmReceiver
 import com.delightroom.reminder.util.StringUtils
 import com.delightroom.reminder.viewmodel.ReminderViewModel
+import com.jakewharton.rxbinding4.widget.textChanges
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.kotlin.addTo
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -36,10 +38,18 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setEditTextCount()
         setEditData()
         selectRingtone()
         setSelectedRingtoneData()
         clickSaveButton()
+    }
+
+    private fun setEditTextCount() {
+        binding.editNameRemind.textChanges()
+            .subscribe {
+                binding.editRemindTextCount.text = "${binding.editNameRemind.length()}/28"
+            }.addTo(compositeDisposable)
     }
 
     private fun setEditData() {

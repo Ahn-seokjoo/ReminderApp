@@ -10,6 +10,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import com.delightroom.reminder.R
 import com.delightroom.reminder.databinding.ActivityAlarmBinding
@@ -28,6 +31,7 @@ class AlarmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        hideSystemBars()
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_alarm)
         val data = intent.getParcelableExtra<ReminderData>(StringUtils.REMIND) ?: throw NullPointerException("intent가 비어있어요..!!")
 
@@ -37,6 +41,16 @@ class AlarmActivity : AppCompatActivity() {
         }
         ringtonePlay(data.ringtone)
         initDismissButtonClick(data)
+    }
+
+    private fun hideSystemBars() {
+        val windowInsetsController =
+            ViewCompat.getWindowInsetsController(window.decorView) ?: return
+
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     }
 
     private fun initDismissButtonClick(data: ReminderData) {

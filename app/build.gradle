@@ -45,6 +45,11 @@ ext {
     roomVersion = "2.4.2"
     navigationVersion = "2.4.1"
     hiltVersion = "2.40.5"
+    cardViewVersion = "1.0.0"
+    rxJavaVersion = "3.1.4"
+    rxAndroidVersion = "3.0.0"
+    rxKotlinVersion = "3.0.1"
+    rxbindingVersion = "4.0.0"
 }
 
 dependencies {
@@ -79,5 +84,11 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     // CardView
-    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.cardview:cardview:$cardViewVersion"
+
+    // rxJava, rxKotlin, rxAndroid, rxBinding
+    implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava3:rxkotlin:$rxKotlinVersion"
+    implementation "com.jakewharton.rxbinding4:rxbinding:$rxbindingVersion"
 }

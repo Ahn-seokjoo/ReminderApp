@@ -1,5 +1,6 @@
-package com.delightroom.reminder.repository
+package com.delightroom.reminder.repository.local
 
+import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.repository.room.ReminderDao
 import javax.inject.Inject
 
@@ -8,8 +9,8 @@ class LocalRemindDataSourceImpl @Inject constructor(private val reminderDao: Rem
         return reminderDao.getAll()
     }
 
-    override suspend fun addRemind(reminderData: ReminderData) {
-        reminderDao.addReminder(reminderData)
+    override suspend fun addRemind(reminderData: ReminderData): Long {
+        return reminderDao.addReminder(reminderData)
     }
 
     override suspend fun deleteRemind(reminderId: Int) {

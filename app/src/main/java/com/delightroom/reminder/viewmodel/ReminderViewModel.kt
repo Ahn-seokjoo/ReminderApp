@@ -3,16 +3,17 @@ package com.delightroom.reminder.viewmodel
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.delightroom.reminder.repository.LocalRemindDataSource
 import com.delightroom.reminder.repository.ReminderData
+import com.delightroom.reminder.repository.ReminderRepository
 import com.delightroom.reminder.util.NonNullLiveData
 import com.delightroom.reminder.util.NonNullMutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ReminderViewModel @Inject constructor(private val local: LocalRemindDataSource) : ViewModel() {
+class ReminderViewModel @Inject constructor(private val repository: ReminderRepository) : ViewModel() {
     private val _ringtone = NonNullMutableLiveData(DEFAULT_RINGTONE)
     val ringtone: NonNullLiveData<String> = _ringtone
 
@@ -25,29 +26,28 @@ class ReminderViewModel @Inject constructor(private val local: LocalRemindDataSo
 
     fun getAll() {
         viewModelScope.launch {
-            _remind.value = local.getAll().sortedBy {
-                it.time
-            }
+            _remind.value = repository.getAll()
         }
     }
 
-    fun addRemind(reminderData: ReminderData) {
-        viewModelScope.launch {
-            local.addRemind(reminderData)
-            getAll()
-        }
+    suspend fun addRemind(reminderData: ReminderData): Long {
+        val id = viewModelScope.async {
+            repository.addRemind(reminderData)
+        }.await()
+        getAll()
+        return id
     }
 
     fun deleteRemind(reminderId: Int) {
         viewModelScope.launch {
-            local.deleteRemind(reminderId)
+            repository.deleteRemind(reminderId)
             getAll()
         }
     }
 
     fun updateRemind(reminderData: ReminderData) {
         viewModelScope.launch {
-            local.updateRemind(reminderData)
+            repository.updateRemind(reminderData)
             getAll()
         }
     }

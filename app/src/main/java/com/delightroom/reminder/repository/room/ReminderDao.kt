@@ -9,7 +9,7 @@ interface ReminderDao {
     suspend fun getAll(): List<ReminderData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addReminder(reminderData: ReminderData)
+    suspend fun addReminder(reminderData: ReminderData): Long
 
     @Query("DELETE FROM ReminderList WHERE id = :reminderId")
     suspend fun deleteReminder(reminderId: Int)

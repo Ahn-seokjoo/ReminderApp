@@ -52,10 +52,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="@{alarm.remind}"
                 android:textColor="@color/gray"
                 app:drawableEndCompat="@drawable/reminder_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/alarm_enabled"
                 app:layout_constraintStart_toStartOf="@id/alarm_time"
                 app:layout_constraintTop_toBottomOf="@id/alarm_time"
                 tools:text="내시경 약 먹기" />

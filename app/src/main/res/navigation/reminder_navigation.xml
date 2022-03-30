@@ -11,9 +11,6 @@
         android:label="ReminderMainFragment"
         tools:layout="@layout/fragment_main_reminder">
         <action
-            android:id="@+id/action_reminderMainFragment_to_reminderAlarmFragment"
-            app:destination="@id/reminderAlarmFragment" />
-        <action
             android:id="@+id/action_reminderMainFragment_to_reminderEditingFragment"
             app:destination="@id/reminderEditingFragment" />
     </fragment>
@@ -29,14 +26,5 @@
             android:name="remind"
             app:argType="com.delightroom.reminder.repository.ReminderData" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/reminderAlarmFragment"
-        android:name="com.delightroom.reminder.ui.alarm.ReminderAlarmFragment"
-        android:label="ReminderAlarmFragment"
-        tools:layout="@layout/fragment_alarm_reminder">
-        <action
-            android:id="@+id/action_reminderAlarmFragment_to_reminderMainFragment"
-            app:destination="@id/reminderMainFragment" />
     </fragment>
 </navigation>

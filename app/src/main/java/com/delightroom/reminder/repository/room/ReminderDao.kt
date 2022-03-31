@@ -5,7 +5,7 @@ import com.delightroom.reminder.repository.ReminderData
 
 @Dao
 interface ReminderDao {
-    @Query("SELECT * FROM ReminderList")
+    @Query("SELECT * FROM ReminderList ORDER BY time")
     suspend fun getAll(): List<ReminderData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

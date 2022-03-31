@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import com.delightroom.reminder.R
 import com.delightroom.reminder.component.AlarmReceiver
+import com.delightroom.reminder.component.AlarmService
 import com.delightroom.reminder.databinding.ActivityAlarmBinding
 import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.util.StringUtils
@@ -32,6 +33,8 @@ class AlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemBars()
+        stopService(Intent(this, AlarmService::class.java))
+
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_alarm)
         val data = intent.getParcelableExtra<ReminderData>(StringUtils.ALARM_REMIND) ?: throw NullPointerException("intent가 비어있어요..!!")
 
@@ -39,6 +42,7 @@ class AlarmActivity : AppCompatActivity() {
             lifecycleOwner = this@AlarmActivity
             remind = data
         }
+
         ringtonePlay(data.ringtone)
         initDismissButtonClick(data)
     }

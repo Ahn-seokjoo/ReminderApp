@@ -13,10 +13,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.delightroom.reminder.R
 import com.delightroom.reminder.base.BaseFragment
+import com.delightroom.reminder.component.AlarmReceiver
 import com.delightroom.reminder.databinding.FragmentMainReminderBinding
 import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.ui.main.recyclerview.ReminderRecyclerviewAdapter
-import com.delightroom.reminder.util.AlarmReceiver
 import com.delightroom.reminder.util.StringUtils
 import com.delightroom.reminder.viewmodel.ReminderViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -18,9 +18,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.delightroom.reminder.R
 import com.delightroom.reminder.base.BaseFragment
+import com.delightroom.reminder.component.AlarmReceiver
 import com.delightroom.reminder.databinding.FragmentEditingReminderBinding
 import com.delightroom.reminder.repository.ReminderData
-import com.delightroom.reminder.util.AlarmReceiver
 import com.delightroom.reminder.util.StringUtils
 import com.delightroom.reminder.viewmodel.ReminderViewModel
 import com.jakewharton.rxbinding4.widget.textChanges

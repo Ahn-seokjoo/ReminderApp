@@ -83,7 +83,7 @@ class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.
             calendar.add(Calendar.DATE, 1)
         }
 
-        alarmManager.setExact(
+        alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
             pendingIntent

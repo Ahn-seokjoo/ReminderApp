@@ -29,6 +29,7 @@
             android:screenOrientation="portrait" />
 
         <receiver android:name=".component.AlarmReceiver" />
+
         <service android:name=".component.AlarmService" />
     </application>
 

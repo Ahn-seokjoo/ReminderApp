@@ -67,9 +67,10 @@ class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.
     private fun registerAlarm(reminder: ReminderData) {
         val alarmManager = activity?.getSystemService(Activity.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java).apply {
-            putExtra("remindData", reminder)
+            putExtra(StringUtils.ALARM_REMIND, reminder)
         }
-        val pendingIntent = PendingIntent.getBroadcast(context, reminder.id, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent =
+            PendingIntent.getBroadcast(context, reminder.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val calendar = Calendar.getInstance().apply {
             this[Calendar.HOUR_OF_DAY] = StringUtils.getTimeResult(reminder.time, hour = true)

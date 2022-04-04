@@ -15,7 +15,6 @@ import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.ui.AlarmActivity
 import com.delightroom.reminder.util.StringUtils
 
-
 class AlarmService : Service() {
     override fun onBind(p0: Intent?): IBinder? {
         return null

@@ -114,7 +114,7 @@ class ReminderEditingFragment : BaseFragment<FragmentEditingReminderBinding>(R.l
         )
 
         val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
+            timeZone = TimeZone.getTimeZone("Asia/Seoul")
             this[Calendar.HOUR_OF_DAY] = StringUtils.getTimeResult(remind.time, hour = true)
             this[Calendar.MINUTE] = StringUtils.getTimeResult(remind.time, hour = false)
             this[Calendar.SECOND] = 0

@@ -73,6 +73,7 @@ class ReminderMainFragment : BaseFragment<FragmentMainReminderBinding>(R.layout.
             PendingIntent.getBroadcast(context, reminder.id, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val calendar = Calendar.getInstance().apply {
+            timeZone = TimeZone.getTimeZone("Asia/Seoul")
             this[Calendar.HOUR_OF_DAY] = StringUtils.getTimeResult(reminder.time, hour = true)
             this[Calendar.MINUTE] = StringUtils.getTimeResult(reminder.time, hour = false)
             this[Calendar.SECOND] = 0

@@ -3,6 +3,7 @@ package com.delightroom.reminder.component
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.os.bundleOf
 import com.delightroom.reminder.repository.ReminderData
 import com.delightroom.reminder.util.StringUtils
@@ -12,6 +13,10 @@ class AlarmReceiver : BroadcastReceiver() {
         val alarmIntent = Intent(context, AlarmService::class.java)
         alarmIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         alarmIntent.putExtras(bundleOf(StringUtils.REMIND to intent.extras?.getParcelable<ReminderData>(StringUtils.ALARM_REMIND)))
-        context.startService(alarmIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(alarmIntent)
+        } else {
+            context.startService(alarmIntent)
+        }
     }
 }
